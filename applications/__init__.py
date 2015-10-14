@@ -32,11 +32,18 @@ def handel_images(size, image_name):
     return Response(content, content_type='image/jpeg')
 
 
+@app.route('/avatar/<int:size>/large/<avatar_name>', methods=['GET'])
 @app.route('/avatar/<int:size>/<avatar_name>', methods=['GET'])
 def handle_avatar(size, avatar_name):
     filename = 'avatar/' + avatar_name
     content = images.resize(filename, size)
     return Response(content, content_type='image/jpeg')
+
+
+# def handle_avatar(size, avatar_name):
+#     filename = 'avatar/' + avatar_name
+#     content = images.resize(filename, size)
+#     return Response(content, content_type='image/jpeg')
 
 
 # TODO: get origin image
