@@ -7,7 +7,9 @@ class HandleImage():
     def __init__(self, data, image_format='JPEG'):
         # self.data = data
         self.im = Image.open(data, mode='r')
-        self.format = image_format
+        # print self.im.format
+        # self.format = image_format
+        self.format = self.im.format
 
     def resize(self, w, h):
         #  quick fix 0 divide error in django.log
