@@ -2,7 +2,10 @@ from flask import Flask
 from flask import Response
 from werkzeug.routing import BaseConverter
 
+
 app = Flask(__name__)
+app.config.from_pyfile('../config/default.py')
+
 
 class RegexConverter(BaseConverter):
     def __init__(self, url_map, *items):
@@ -94,7 +97,7 @@ def origin_avatar(avatar_name, size=None):
     return Response(content, content_type='image/jpeg')
 
 if __name__ == '__main__':
-    app.debug = True
+    # app.debug = False
     app.run(host="0.0.0.0")
 
 __author__ = 'xiejiaxin'
