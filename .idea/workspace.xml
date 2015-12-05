@@ -2,35 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1287a508-bac1-4ae0-9a11-929c2c8aa33c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/test/img/test.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/CMakeLists.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/README.mkd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/CHANGELOG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/COPYRIGHT" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/INSTALL" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/Makefile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/configure" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/pngquant.1" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/pngquant.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/rwpng.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/rwpng.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/rwpng_cocoa.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/test/test.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant/test/test.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/applications/images/pnglib/pngquant_tiny.c" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/default.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/engine/Dockerfile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/engine/sources.list.trusty" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/engine/supervisord.conf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/applications/__init__.py" afterPath="$PROJECT_DIR$/applications/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/applications/images/handle.py" afterPath="$PROJECT_DIR$/applications/images/handle.py" />
     </list>
     <ignored path="rambutan.iws" />
@@ -56,8 +27,8 @@
       <file leaf-file-name="handle.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/applications/images/handle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.16079633">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.06891271">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -68,9 +39,33 @@
       <file leaf-file-name="Dockerfile" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/engine/Dockerfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.25">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state vertical-scroll-proportion="-3.75">
+              <caret line="6" column="102" selection-start-line="6" selection-start-column="102" selection-end-line="6" selection-end-column="102" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="handleImage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/applications/images/handleImage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/applications/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#23#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,8 +97,8 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/engine/supervisord.conf" />
         <option value="$PROJECT_DIR$/config/default.py" />
-        <option value="$PROJECT_DIR$/applications/images/handle.py" />
         <option value="$PROJECT_DIR$/engine/Dockerfile" />
+        <option value="$PROJECT_DIR$/applications/images/handle.py" />
       </list>
     </option>
   </component>
@@ -856,26 +851,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applications/images/handleImage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applications/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="67" column="23" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/applications/images/pnglib/pngquant/lib/pam.c">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -958,16 +933,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/engine/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.25">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state vertical-scroll-proportion="-3.75">
+          <caret line="6" column="102" selection-start-line="6" selection-start-column="102" selection-end-line="6" selection-end-column="102" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/images/handleImage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applications/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applications/images/handle.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16079633">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.06891271">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>

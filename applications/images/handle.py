@@ -35,7 +35,7 @@ def resize(image_name, size, **kwargs):
 
     f = origin(image_name)
 
-    # f = StringIO(r.content)
+    f = StringIO(f)
 
     image = HandleImage(f)
     image.resize(size, size)
