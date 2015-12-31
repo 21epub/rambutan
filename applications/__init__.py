@@ -17,13 +17,20 @@ app.url_map.converters['regex'] = RegexConverter
 import images
 
 
+def get_content_type(filename):
+    content_type = 'image/jpeg'
+    if filename.endswith('png'):
+        content_type = 'image/png'
+    return content_type
+
+
 @app.route('/img/<int:size>/<image_name>', methods=['GET'])
 def handel_img(size, image_name):
-    # string = "%d %s" % (size, image_name)
     filename = 'img/{0}'.format(image_name)
     app.logger.info("size %d, imagename %s" % (size, filename))
     content = images.resize(filename, size)
-    return Response(content, content_type='image/jpeg')
+    content_type = get_content_type(filename)
+    return Response(content, content_type=content_type)
 
 
 @app.route('/images/<int:size>/<image_name>', methods=['GET'])
@@ -32,15 +39,18 @@ def handel_images(size, image_name):
     filename = 'images/{0}'.format(image_name)
     app.logger.info("size %d, imagename %s" % (size, filename))
     content = images.resize(filename, size)
-    return Response(content, content_type='image/jpeg')
+    content_type = get_content_type(filename)
+    return Response(content, content_type=content_type)
 
 
 @app.route('/avatar/<int:size>/<avatar_name>', methods=['GET'])
 def handle_avatar(size, avatar_name):
     filename = 'avatar/{0}'.format(avatar_name)
     # app.logger.info("avatar %s" % filename)
+    content_type = get_content_type(filename)
+
     content = images.resize(filename, size)
-    return Response(content, content_type='image/jpeg')
+    return Response(content, content_type=content_type)
 
 
 @app.route('/avatar/<int:size>/large/<avatar_name>', methods=['GET'])
