@@ -11,9 +11,11 @@ intranet_image_server = "http://10.0.2.50/"
 
 PNG = 'png'
 
+
 def compress(f):
     rv = tiny(f, len(f))
     return rv
+
 
 def origin(image_name, **kwargs):
     url = intranet_image_server + image_name
@@ -43,10 +45,4 @@ def resize(image_name, size, **kwargs):
     return image.getImageString()
 
 
-
-
-
-
-
 __author__ = 'xiejiaxin'
-
