@@ -5,7 +5,7 @@ class Config(object):
         "quality": 85,
     }
 
-    STORAGE_PATH = "/Users/xiejiaxin/Desktop/"
+    STORAGE_PATH = "/path/to/image/"
 
 
 class DevelopmentConfig(Config):

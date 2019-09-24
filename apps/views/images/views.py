@@ -51,7 +51,7 @@ class ProcessorImageView(MethodView):
 
 
 images.add_url_rule(
-    "/<filename>/resize",
+    "/<filename>/resize/",
     view_func=ProcessorImageView.as_view("image-processor-thumbnail"),
 )
 images.add_url_rule(

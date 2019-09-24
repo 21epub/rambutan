@@ -6,7 +6,6 @@ class FileStorage(BaseStorage):
 
     def is_exist(self, filename) -> bool:
         abs_filename = self.storage_path + filename
-        print (abs_filename)
         return os.path.exists(abs_filename)
 
     def delete(self):
