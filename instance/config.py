@@ -1,8 +1,16 @@
 class Config(object):
     DEBUG = True
+    IMAGE_CONFIG = {
+        "thumbnail_size": 400,
+        "quality": 85,
+    }
 
 
 class DevelopmentConfig(Config):
+    pass
+
+
+class TestingConfig(Config):
     pass
 
 

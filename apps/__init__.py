@@ -115,23 +115,24 @@
 
 from flask import Flask
 
-from instance.default import app_config
+from instance.config import app_config
 
 
 def create_app(config_name="development"):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])
-    app.config.from_pyfile('config.py', silent=True)
+    app.config.from_pyfile("config.py")
 
     app.config.from_mapping(
-        SECRET_KEY='dev',
+        SECRET_KEY="dev",
         # DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
 
     from apps.views.images import images as images_url
+
     app.register_blueprint(images_url)
 
     return app
 
 
-__version__ = "2.0"
+__version__ = "2.0.0"
