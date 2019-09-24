@@ -5,15 +5,17 @@ class BaseStorage(object):
             self.init_app(app)
 
     def init_app(self, app):
-        pass
+        self.storage_path = app.config.get("STORAGE_PATH", None)
+        if self.storage_path is None:
+            raise Exception("storage is None")
 
-    def read(self):
+    def read(self, **kwargs):
         raise NotImplementedError()
 
     def delete(self):
         raise NotImplementedError()
 
-    def is_exist(self) -> bool:
+    def is_exist(self, **kwargs) -> bool:
         return True
 
     def save(self, dist):

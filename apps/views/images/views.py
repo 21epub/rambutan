@@ -1,5 +1,4 @@
-import requests
-from flask import Flask, current_app, Response
+from flask import Flask, current_app, Response, abort
 from flask.views import MethodView
 
 from . import images
@@ -43,8 +42,12 @@ class ProcessorImageView(MethodView):
         return Response(content, content_type=mime_type)
 
     def get(self, filename, size=0):
-        res = requests.get("https://img.chainnews.com/upload/cover/{}".format(filename))
-        return self.resize(content=res.content, size=size)
+
+        if app.storage.is_exist(filename):
+            content = app.storage.read(filename)
+            return self.resize(content=content, size=size)
+        else:
+            return abort(404)
 
 
 images.add_url_rule(

@@ -117,6 +117,8 @@ from flask import Flask
 
 from instance.config import app_config
 
+from flask_storage.local_storage import FileStorage
+
 
 def create_app(config_name="development"):
     app = Flask(__name__, instance_relative_config=True)
@@ -127,6 +129,9 @@ def create_app(config_name="development"):
         SECRET_KEY="dev",
         # DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
+
+    # set storage
+    app.storage = FileStorage(app)
 
     from apps.views.images import images as images_url
 
