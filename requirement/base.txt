@@ -6,3 +6,6 @@ Werkzeug==0.15.6
 
 html5lib==1.0.1
 requests==2.22.0
+
+
+numpy==1.17.2
