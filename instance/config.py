@@ -5,7 +5,8 @@ class Config(object):
         "quality": 85,
     }
 
-    STORAGE_PATH = "/path/to/images/"
+    SECRET_KEY = "dev"
+    STORAGE_PATH = "/path/to/image/"
 
 
 class DevelopmentConfig(Config):
@@ -22,6 +23,6 @@ class ProductionConfig(Config):
 
 app_config = {
     "development": DevelopmentConfig,
-    # 'testing': TestingConfig,
+    'testing': TestingConfig,
     "production": ProductionConfig,
 }
