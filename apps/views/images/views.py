@@ -1,8 +1,9 @@
-from flask import Flask, current_app, Response, abort
+from flask import Flask, current_app, abort, render_template
 from flask.views import MethodView
 
 from . import images
 from .handles.jpg_handle import ImageProcessor
+from .mixins import ProcessImageMixin
 
 app = Flask(__name__)
 with app.app_context():
@@ -28,19 +29,7 @@ def get_quality_size() -> int:
     return thumbnail_size
 
 
-class ProcessorImageView(MethodView):
-
-    def resize(self, content, size):
-        _size = get_thumbnail_size()
-        if size >= _size:
-            _size = size
-        processor = ImageProcessor(fd=content)
-        img = processor.resize((_size, _size))
-        content, mime_type = ImageProcessor.output(
-            img, format=processor.get_format(), quality=get_quality_size()
-        )
-        return Response(content, content_type=mime_type)
-
+class ResizeImageView(ProcessImageMixin, MethodView):
     def get(self, filename, size=0):
 
         if app.storage.is_exist(filename):
@@ -50,11 +39,24 @@ class ProcessorImageView(MethodView):
             return abort(404)
 
 
+class AsciiArtImageView(ProcessImageMixin, MethodView):
+    def get(self, filename):
+        if app.storage.is_exist(filename):
+            content = app.storage.read(filename)
+            return render_template("images/aimg.html", aimg=self.to_asciiart(content))
+        else:
+            return abort(404)
+
+
 images.add_url_rule(
     "/<filename>/resize/",
-    view_func=ProcessorImageView.as_view("image-processor-thumbnail"),
+    view_func=ResizeImageView.as_view("image-processor-thumbnail"),
 )
 images.add_url_rule(
     "/<filename>/resize/<int:size>",
-    view_func=ProcessorImageView.as_view("image-processor"),
+    view_func=ResizeImageView.as_view("image-processor"),
+)
+
+images.add_url_rule(
+    "/<filename>/ascii/", view_func=AsciiArtImageView.as_view("image-ascii")
 )

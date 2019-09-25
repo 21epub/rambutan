@@ -5,7 +5,7 @@ class Config(object):
         "quality": 85,
     }
 
-    STORAGE_PATH = "/path/to/image/"
+    STORAGE_PATH = "/path/to/images/"
 
 
 class DevelopmentConfig(Config):
