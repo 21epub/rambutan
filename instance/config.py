@@ -4,7 +4,7 @@ class Config(object):
         "thumbnail_size": 400,
         "quality": 85,
     }
-
+    SECRET_KEY = "dev"
     STORAGE_PATH = "/path/to/image/"
 
 
@@ -22,6 +22,6 @@ class ProductionConfig(Config):
 
 app_config = {
     "development": DevelopmentConfig,
-    # 'testing': TestingConfig,
+    'testing': TestingConfig,
     "production": ProductionConfig,
 }

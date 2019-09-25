@@ -125,10 +125,10 @@ def create_app(config_name="development"):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile("config.py")
 
-    app.config.from_mapping(
-        SECRET_KEY="dev",
-        # DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
-    )
+    # app.config.from_mapping(
+    #     SECRET_KEY="dev",
+    #     # DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+    # )
 
     # set storage
     app.storage = FileStorage(app)
