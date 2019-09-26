@@ -114,6 +114,7 @@
 
 
 from flask import Flask
+from flask_bootstrap import Bootstrap
 
 from instance.config import app_config
 
@@ -132,6 +133,7 @@ def create_app(config_name="development"):
 
     # set storage
     app.storage = FileStorage(app)
+    Bootstrap(app)
 
     from apps.views.images import images as images_url
 
