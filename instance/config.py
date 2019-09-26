@@ -5,7 +5,8 @@ class Config(object):
         "quality": 85,
     }
     SECRET_KEY = "dev"
-    STORAGE_PATH = "/path/to/image/"
+    # STORAGE_PATH = "/path/to/image/"
+    STORAGE_PATH = "/Users/xiejiaxin/Desktop/"
 
 
 class DevelopmentConfig(Config):
