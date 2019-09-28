@@ -1,6 +1,6 @@
 import numpy as np
 from io import BytesIO
-from PIL import Image
+from PIL import Image, ImageEnhance
 
 mime_type = {"jpeg": "image/jpeg", "png": "image/png"}
 
@@ -32,12 +32,15 @@ class ImageProcessor(object):
         self.im.thumbnail(size)
         return self.im
 
+    def to_gray(self) -> Image.Image:
+        return self.im.convert("L")
+
     def to_ascii(self, cols=80, scale=0.43, lv=False):
-        im = self.im.convert("L")
+        im = self.to_gray()
         W, H = im.size
-        w = W // cols
-        h = w // scale
-        rows = H // h
+        w = W / cols
+        h = w / scale
+        rows = int(H / h)
 
         if cols > W or rows > H:
             raise
@@ -56,9 +59,9 @@ class ImageProcessor(object):
                 img = im.crop((x1, y1, x2, y2))
                 avg = int(get_average_l(img))
                 if lv:
-                    gsval = gscale1[(avg * 69) // 255]
+                    gsval = gscale1[int((avg * 69) / 255)]
                 else:
-                    gsval = gscale2[(avg * 9) // 255]
+                    gsval = gscale2[int((avg * 9) / 255)]
                 aimg[j] += gsval
         return aimg
 

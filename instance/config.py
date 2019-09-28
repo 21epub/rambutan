@@ -6,7 +6,7 @@ class Config(object):
     }
 
     SECRET_KEY = "dev"
-    STORAGE_PATH = "/path/to/image/"
+    STORAGE_PATH = "/path/to/images/"
 
 
 class DevelopmentConfig(Config):

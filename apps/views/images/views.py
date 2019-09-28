@@ -30,10 +30,18 @@ def get_quality_size() -> int:
 
 class ResizeImageView(ProcessImageMixin, MethodView):
     def get(self, filename, size=0):
-
         if app.storage.is_exist(filename):
             content = app.storage.read(filename)
             return self.resize(content=content, size=size)
+        else:
+            return abort(404)
+
+
+class GrayImageView(ProcessImageMixin, MethodView):
+    def get(self, filename):
+        if app.storage.is_exist(filename):
+            content = app.storage.read(filename)
+            return self.to_gray(content=content)
         else:
             return abort(404)
 
@@ -54,6 +62,10 @@ images.add_url_rule(
 images.add_url_rule(
     "/<filename>/resize/<int:size>",
     view_func=ResizeImageView.as_view("image-processor"),
+)
+
+images.add_url_rule(
+    "/<filename>/l/", view_func=GrayImageView.as_view("image-gray")
 )
 
 images.add_url_rule(
