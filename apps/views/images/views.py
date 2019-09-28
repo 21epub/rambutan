@@ -2,7 +2,6 @@ from flask import Flask, current_app, abort, render_template
 from flask.views import MethodView
 
 from . import images
-from .handles.jpg_handle import ImageProcessor
 from .mixins import ProcessImageMixin
 
 app = Flask(__name__)
