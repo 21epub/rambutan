@@ -1,11 +1,14 @@
-import numpy as np
 from io import BytesIO
-from PIL import Image, ImageEnhance
+
+import numpy as np
+from PIL import Image
 
 mime_type = {"jpeg": "image/jpeg", "png": "image/png"}
 
 # 70 levels of gray
-gscale1 = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+gscale1 = (
+    "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+)
 
 # 10 levels of gray
 gscale2 = "@%#*+=-:. "
