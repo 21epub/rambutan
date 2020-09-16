@@ -1,3 +1,6 @@
+import os
+
+
 class Config(object):
     DEBUG = True
     IMAGE_CONFIG = {
@@ -20,9 +23,11 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
 
+    STORAGE_PATH = os.getenv("STORAGE_PATH")
+
 
 app_config = {
     "development": DevelopmentConfig,
-    'testing': TestingConfig,
+    "testing": TestingConfig,
     "production": ProductionConfig,
 }
