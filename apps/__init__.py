@@ -27,4 +27,4 @@ def create_app(config_name="development"):
     return app
 
 
-__version__ = "2.0.0"
+__version__ = "0.1.0"
