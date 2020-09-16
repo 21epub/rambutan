@@ -1,12 +1,13 @@
 from PIL import Image
-from cStringIO import StringIO
+from io import StringIO
+
+# from cStringIO import StringIO
 
 
 class HandleImage:
-
-    def __init__(self, data, image_format='JPEG'):
+    def __init__(self, data, image_format="JPEG"):
         # self.data = data
-        self.im = Image.open(data, mode='r')
+        self.im = Image.open(data, mode="r")
         # print self.im.format
         # self.format = image_format
         self.format = self.im.format
@@ -33,6 +34,3 @@ class HandleImage:
         content = output.getvalue()
         output.close()
         return content
-
-
-__author__ = 'xiejiaxin'
