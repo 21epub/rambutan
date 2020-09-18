@@ -9,7 +9,7 @@ WORKDIR		/opt/rambutan
 
 RUN pip install -r requirement/prod.txt
 
-COPY docker/conf/gunicorn /etc/default/gunicorn
+COPY docker/conf/gunicorn /etc/default/gunicorn.py
 
 EXPOSE 8000
 
