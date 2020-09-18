@@ -9,5 +9,10 @@ WORKDIR		/opt/rambutan
 
 RUN pip install -r requirement/prod.txt
 
+COPY docker/conf/gunicorn /etc/default/gunicorn
+
 EXPOSE		5000
 
+
+
+#CMD ["/usr/local/bin/gunicorn", "-b", "0.0.0.0:8000", "-k", "gevent", "-w", "2", "apps:create_app()"]

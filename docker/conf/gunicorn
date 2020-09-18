@@ -1,0 +1,11 @@
+# coding=utf-8
+import os
+import multiprocessing
+
+pidfile = "/tmp/gunicorn.pid"
+bind = "0.0.0.0:8000"
+worker_class = "gevent"
+workers = os.getenv("WORKER_NUMS", 2)
+max_requests = 8192
+max_requests_jitter = 8192
+keep_alive = 5
