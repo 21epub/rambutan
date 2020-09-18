@@ -9,4 +9,5 @@ services:
     restart: always
     environment:
       - FLASK_ENV=production
+      - STORAGE_PATH=/tmp/images
     command: ["gunicorn", "-c", "/etc/default/gunicorn.py", "apps:create_app()"]

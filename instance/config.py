@@ -23,7 +23,7 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
 
-    STORAGE_PATH = os.getenv("STORAGE_PATH")
+    STORAGE_PATH = os.getenv("STORAGE_PATH", default="/tmp/images/")
 
 
 app_config = {
