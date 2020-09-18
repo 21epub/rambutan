@@ -9,4 +9,4 @@ services:
     restart: always
     environment:
       - FLASK_ENV=production
-    command: ["gunicorn", "-c", "/etc/default/gunicorn", "app:create_app()"]
+    command: ["gunicorn", "-c", "/etc/default/gunicorn", "apps:create_app()"]
