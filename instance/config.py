@@ -9,7 +9,7 @@ class Config(object):
     }
 
     SECRET_KEY = "dev"
-    STORAGE_PATH = "/path/to/images/"
+    STORAGE_PATH = "/Users/xiejiaxin/Downloads"
 
 
 class DevelopmentConfig(Config):

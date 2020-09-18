@@ -1,20 +1,24 @@
-from .base import BaseStorage
 import os
+from .base import BaseStorage
 
 
 class FileStorage(BaseStorage):
+    def get_abs_filename(self, filename):
+        if self.storage_path.endswith("/"):
+            _abs_filename = f"{self.storage_path}{filename}"
+        else:
+            _abs_filename = f"{self.storage_path}/{filename}"
+        return _abs_filename
 
     def is_exist(self, filename) -> bool:
-        abs_filename = self.storage_path + filename
-        return os.path.exists(abs_filename)
+
+        return os.path.exists(self.get_abs_filename(filename))
 
     def delete(self):
         return
 
     def read(self, filename):
-
-        abs_filename = self.storage_path + filename
-        f = open(abs_filename, mode="rb")
+        f = open(self.get_abs_filename(filename), mode="rb")
         content = f.read()
         f.close()
         return content
