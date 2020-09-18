@@ -15,16 +15,21 @@ def create_app(config_name="development"):
     #     SECRET_KEY="dev",
     #     # DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     # )
+    register_extensions(app)
+    register_blueprints(app)
 
-    # set storage
+    return app
+
+
+def register_extensions(app):
     app.storage = FileStorage(app)
     Bootstrap(app)
 
+
+def register_blueprints(app):
     from apps.views.images import images as images_url
 
     app.register_blueprint(images_url)
-
-    return app
 
 
 __version__ = "0.1.0"
