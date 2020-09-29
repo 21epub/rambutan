@@ -1,4 +1,4 @@
-from flask import Flask, current_app, abort, render_template
+from flask import Flask, current_app, abort
 from flask.views import MethodView
 
 from . import images
