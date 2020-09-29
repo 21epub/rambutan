@@ -28,7 +28,7 @@ def get_quality_size() -> int:
 
 class ProcessImageMixin(object):
 
-    def resize(self, content, size, quality=85):
+    def resize(self, content, size, quality=95):
         _size = get_thumbnail_size()
         app.logger.info(_size)
         if size >= _size:
@@ -40,15 +40,15 @@ class ProcessImageMixin(object):
         )
         return Response(content, content_type=mime_type)
 
-    def to_gray(self, content):
-        processor = ImageProcessor(fd=content)
-        img = processor.to_gray()
-        content, mime_type = ImageProcessor.output(
-            img, format=processor.get_format(), quality=100
-        )
-        return Response(content, content_type=mime_type)
+    # def to_gray(self, content):
+    #     processor = ImageProcessor(fd=content)
+    #     img = processor.to_gray()
+    #     content, mime_type = ImageProcessor.output(
+    #         img, format=processor.get_format(), quality=100
+    #     )
+    #     return Response(content, content_type=mime_type)
 
-    def to_asciiart(self, content):
-        processor = ImageProcessor(fd=content)
-        aimg = processor.to_ascii()
-        return aimg
+    # def to_asciiart(self, content):
+    #     processor = ImageProcessor(fd=content)
+    #     aimg = processor.to_ascii()
+    #     return aimg

@@ -37,22 +37,22 @@ class ResizeImageView(ProcessImageMixin, MethodView):
             return abort(404)
 
 
-class GrayImageView(ProcessImageMixin, MethodView):
-    def get(self, filename):
-        if app.storage.is_exist(filename):
-            content = app.storage.read(filename)
-            return self.to_gray(content=content)
-        else:
-            return abort(404)
+# class GrayImageView(ProcessImageMixin, MethodView):
+#     def get(self, filename):
+#         if app.storage.is_exist(filename):
+#             content = app.storage.read(filename)
+#             return self.to_gray(content=content)
+#         else:
+#             return abort(404)
 
 
-class AsciiArtImageView(ProcessImageMixin, MethodView):
-    def get(self, filename):
-        if app.storage.is_exist(filename):
-            content = app.storage.read(filename)
-            return render_template("images/aimg.html", aimg=self.to_asciiart(content))
-        else:
-            return abort(404)
+# class AsciiArtImageView(ProcessImageMixin, MethodView):
+#     def get(self, filename):
+#         if app.storage.is_exist(filename):
+#             content = app.storage.read(filename)
+#             return render_template("images/aimg.html", aimg=self.to_asciiart(content))
+#         else:
+#             return abort(404)
 
 
 images.add_url_rule(
@@ -64,10 +64,10 @@ images.add_url_rule(
     view_func=ResizeImageView.as_view("image-processor"),
 )
 
-images.add_url_rule(
-    "/<filename>/l/", view_func=GrayImageView.as_view("image-gray")
-)
+# images.add_url_rule(
+#     "/<filename>/l/", view_func=GrayImageView.as_view("image-gray")
+# )
 
-images.add_url_rule(
-    "/<filename>/ascii/", view_func=AsciiArtImageView.as_view("image-ascii")
-)
+# images.add_url_rule(
+#     "/<filename>/ascii/", view_func=AsciiArtImageView.as_view("image-ascii")
+# )
