@@ -1,9 +1,15 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
-
-from instance.config import app_config
+from werkzeug.routing import BaseConverter
 
 from flask_storage.local_storage import FileStorage
+from instance.config import app_config
+
+
+class RegexConverter(BaseConverter):
+    def __init__(self, map, *args):
+        self.map = map
+        self.regex = args[0]
 
 
 def create_app(config_name="development"):
@@ -24,6 +30,7 @@ def create_app(config_name="development"):
 def register_extensions(app):
     app.storage = FileStorage(app)
     Bootstrap(app)
+    app.url_map.converters["regex"] = RegexConverter
 
 
 def register_blueprints(app):

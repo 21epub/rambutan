@@ -1,4 +1,6 @@
-from flask import Flask, current_app, abort, Response
+import re
+
+from flask import Flask, current_app, abort
 from flask.views import MethodView
 
 from . import images
@@ -9,10 +11,13 @@ with app.app_context():
     app = current_app
 
 image_size_map = {
+    "origin": 0,
     "thumb": 320,
     "large": 1024,
     "hd": 2048
 }
+
+image_pattern = re.compile(r".*-(thumb|large|hd)$", re.IGNORECASE)
 
 
 def image_config() -> dict:
@@ -34,56 +39,34 @@ def get_quality_size() -> int:
     return thumbnail_size
 
 
-class OriginImageView(MethodView):
-
-    def get(self, filename):
-        if app.storage.is_exist(filename):
-            content = app.storage.read(filename)
-            return Response(content, content_type="image/jpg")
-        else:
-            abort(404)
+# class OriginImageView(MethodView):
+#
+#     def get(self, filename):
+#         if app.storage.is_exist(filename):
+#             content = app.storage.read(filename)
+#             return Response(content, content_type="image/jpg")
+#         else:
+#             abort(404)
 
 
 class ResizeImageView(ProcessImageMixin, MethodView):
-    def get(self, filename, resize="thumb"):
-        app.logger.info(resize)
+    def get(self, filename):
 
-        if resize in image_size_map:
-            _size = image_size_map[resize]
+        _filename, _size_string = self.process_filename(filename)
+        if _size_string in image_size_map:
+            _size = image_size_map[_size_string]
         else:
             return abort(401)
 
-        if app.storage.is_exist(filename):
-            content = app.storage.read(filename)
+        if app.storage.is_exist(_filename):
+            content = app.storage.read(_filename)
             return self.resize(content=content, size=_size)
         else:
             return abort(404)
 
 
-# class GrayImageView(ProcessImageMixin, MethodView):
-#     def get(self, filename):
-#         if app.storage.is_exist(filename):
-#             content = app.storage.read(filename)
-#             return self.to_gray(content=content)
-#         else:
-#             return abort(404)
-
-
-# class AsciiArtImageView(ProcessImageMixin, MethodView):
-#     def get(self, filename):
-#         if app.storage.is_exist(filename):
-#             content = app.storage.read(filename)
-#             return render_template("images/aimg.html", aimg=self.to_asciiart(content))
-#         else:
-#             return abort(404)
-
 images.add_url_rule(
-    "/<path:filename>",
-    view_func=OriginImageView.as_view("image-origin"),
-)
-
-images.add_url_rule(
-    "/<path:filename>-<resize>",
+    "/<regex('.*'):filename>",
     view_func=ResizeImageView.as_view("image-processor"),
 )
 # images.add_url_rule(

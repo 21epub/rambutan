@@ -1,3 +1,5 @@
+import re
+
 from flask import Response, Flask, current_app
 
 from apps.views.images.handles.jpg_handle import ImageProcessor
@@ -27,8 +29,22 @@ def get_quality_size() -> int:
 
 
 class ProcessImageMixin(object):
+    img_pattern = re.compile(r".*-(thumb|large|hd)$", re.IGNORECASE)
+
+    def process_filename(self, filename: str) -> tuple:
+        m = self.img_pattern.match(filename)
+        _size = "origin"
+        if m:
+            _size = m.group(1)
+            _filename = filename.replace(f"-{_size}", "")
+        else:
+            _filename = filename
+        return _filename, _size
 
     def resize(self, content, size, quality=95):
+        if size == 0:
+            return Response(content, content_type="image/jpg")
+
         _size = get_thumbnail_size()
         if size >= _size:
             _size = size
