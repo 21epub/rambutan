@@ -1,4 +1,4 @@
-from flask import Flask, current_app, abort
+from flask import Flask, current_app, abort, Response
 from flask.views import MethodView
 
 from . import images
@@ -28,6 +28,16 @@ def get_quality_size() -> int:
     return thumbnail_size
 
 
+class OriginImageView(MethodView):
+
+    def get(self, filename):
+        if app.storage.is_exist(filename):
+            content = app.storage.read(filename)
+            return Response(content, content_type="image/jpg")
+        else:
+            abort(404)
+
+
 class ResizeImageView(ProcessImageMixin, MethodView):
     def get(self, filename, size=0):
         if app.storage.is_exist(filename):
@@ -54,6 +64,10 @@ class ResizeImageView(ProcessImageMixin, MethodView):
 #         else:
 #             return abort(404)
 
+images.add_url_rule(
+    "/<filename>",
+    view_func=OriginImageView.as_view("image-origin"),
+)
 
 images.add_url_rule(
     "/<filename>/resize/",

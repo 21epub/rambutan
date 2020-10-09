@@ -30,7 +30,6 @@ class ProcessImageMixin(object):
 
     def resize(self, content, size, quality=95):
         _size = get_thumbnail_size()
-        app.logger.info(_size)
         if size >= _size:
             _size = size
         processor = ImageProcessor(fd=content)
