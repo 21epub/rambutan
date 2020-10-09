@@ -1,3 +1,6 @@
+import logging
+import logging.handlers
+
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from werkzeug.routing import BaseConverter
@@ -23,6 +26,7 @@ def create_app(config_name="development"):
     # )
     register_extensions(app)
     register_blueprints(app)
+    register_logging(app)
 
     return app
 
@@ -37,6 +41,14 @@ def register_blueprints(app):
     from apps.views.images import images as images_url
 
     app.register_blueprint(images_url)
+
+
+def register_logging(app):
+    handler = logging.handlers.RotatingFileHandler(
+        "/tmp/flask.log", maxBytes=1024 * 1024
+    )
+    handler.setLevel(logging.ERROR)
+    app.logger.addHandler(handler)
 
 
 __version__ = "0.1.2"
