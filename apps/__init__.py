@@ -39,4 +39,4 @@ def register_blueprints(app):
     app.register_blueprint(images_url)
 
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
