@@ -8,6 +8,12 @@ app = Flask(__name__)
 with app.app_context():
     app = current_app
 
+image_size_map = {
+    "thumb": 320,
+    "large": 1024,
+    "hd": 2048
+}
+
 
 def image_config() -> dict:
     image_config = app.config.get("IMAGE_CONFIG", {})
@@ -39,10 +45,17 @@ class OriginImageView(MethodView):
 
 
 class ResizeImageView(ProcessImageMixin, MethodView):
-    def get(self, filename, size=0):
+    def get(self, filename, resize="thumb"):
+        app.logger.info(resize)
+
+        if resize in image_size_map:
+            _size = image_size_map[resize]
+        else:
+            return abort(401)
+
         if app.storage.is_exist(filename):
             content = app.storage.read(filename)
-            return self.resize(content=content, size=size)
+            return self.resize(content=content, size=_size)
         else:
             return abort(404)
 
@@ -70,13 +83,13 @@ images.add_url_rule(
 )
 
 images.add_url_rule(
-    "/<filename>/resize/",
-    view_func=ResizeImageView.as_view("image-processor-thumbnail"),
-)
-images.add_url_rule(
-    "/<filename>/resize/<int:size>",
+    "/<filename>-<resize>",
     view_func=ResizeImageView.as_view("image-processor"),
 )
+# images.add_url_rule(
+#     "/<filename>/resize/<int:size>",
+#     view_func=ResizeImageView.as_view("image-processor"),
+# )
 
 # images.add_url_rule(
 #     "/<filename>/l/", view_func=GrayImageView.as_view("image-gray")
