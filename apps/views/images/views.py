@@ -78,12 +78,12 @@ class ResizeImageView(ProcessImageMixin, MethodView):
 #             return abort(404)
 
 images.add_url_rule(
-    "/<filename>",
+    "/<path:filename>",
     view_func=OriginImageView.as_view("image-origin"),
 )
 
 images.add_url_rule(
-    "/<filename>-<resize>",
+    "/<path:filename>-<resize>",
     view_func=ResizeImageView.as_view("image-processor"),
 )
 # images.add_url_rule(
