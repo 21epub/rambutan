@@ -5,23 +5,8 @@ from PIL import Image
 mime_type = {"jpeg": "image/jpeg", "png": "image/png"}
 
 
-# 70 levels of gray
-# gscale1 = (
-#     "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
-# )
-
-# 10 levels of gray
-# gscale2 = "@%#*+=-:. "
-
-
 def _get_mime_type(format) -> str:
     return mime_type.get(format.lower())
-
-
-# def get_average_l(image):
-#     im = np.array(image)
-#     w, h = im.shape
-#     return np.average(im.reshape(w * h))
 
 
 class ImageProcessor(object):
