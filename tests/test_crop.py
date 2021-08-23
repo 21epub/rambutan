@@ -1,56 +1,16 @@
-from io import BytesIO
 
+import os
+import re
 from PIL import Image
 
-mime_type = {"jpeg": "image/jpeg", "png": "image/png"}
 
+class CropImage:
 
-def _get_mime_type(format) -> str:
-    return mime_type.get(format.lower())
-
-
-class ImageProcessor(object):
-    def __init__(self, fd, **kwargs):
-        self.im = Image.open(BytesIO(fd), mode="r")
+    def __init__(self, image_path):
+        self.im = Image.open(os.getcwd() + f"/{image_path}")
         # 原始图片的宽度、长度
         self.origin_width, self.origin_heigth = self.im.size
-
-    def get_format(self):
-        return self.im.format
-
-    def resize(self, size=tuple()) -> Image.Image:
-        self.im.thumbnail(size)
-        return self.im
-
-    @classmethod
-    def output(cls, im, format="JPEG", quality=85) -> tuple:
-        if not isinstance(im, Image.Image):
-            raise
-        fd = BytesIO()
-        _format = format
-        im.save(fd, format=_format, quality=quality)
-        content = fd.getvalue()
-        fd.close()
-        return content, _get_mime_type(_format)
-
-    # 裁剪入口
-    def crop_with_param(self, crop_str, ignore_error=True, format="JPEG", quality=85):
-        box = self.parse_param(crop_str)
-        # 裁剪
-        im_crop = self.im.crop(box)
-        # 保存
-        try:
-            fd = BytesIO()
-            _format = format
-            im_crop.save(fd, format=_format, quality=quality)
-            content = fd.getvalue()
-            fd.close()
-            return content, _get_mime_type(_format)
-        except:
-            # todo 异常处理
-            if ignore_error:
-                return
-            raise
+        print(self.im.size)
 
     def parse_param(self, crop_str):
         """
@@ -177,6 +137,21 @@ class ImageProcessor(object):
                 box[1] = box[1] + int(ady)
                 box[3] = box[3] + int(ady)
 
+    def crop_with_param(self, crop_str, ignore_error=True, name=0):
+        box = self.parse_param(crop_str)
+        # 裁剪
+        im_crop = self.im.crop(box)
+        # 保存
+        try:
+            if name:
+                im_crop.save(f"{name}.png")
+            else:
+                im_crop.save(f"{crop_str}.png")
+        except:
+            if ignore_error:
+                return
+            raise
+
     def crop(self, width=0, height=0, dx=0, dy=0, ignore_error=True, name=0):
         """
         :param width: 裁剪后的宽度
@@ -233,3 +208,9 @@ class ImageProcessor(object):
         if not dy or dy < 0:
             return 0
         return dy
+
+
+if __name__ == "__main__":
+    CropImage("origin.png").crop_with_param("!200xa1200")
+
+
