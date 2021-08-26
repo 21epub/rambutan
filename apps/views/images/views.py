@@ -1,6 +1,6 @@
 import re
 
-from flask import Flask, current_app, abort
+from flask import Flask, current_app, abort, request
 from flask.views import MethodView
 
 from . import images
@@ -40,7 +40,13 @@ def get_quality_size() -> int:
 
 
 class ResizeImageView(ProcessImageMixin, MethodView):
+
     def get(self, filename):
+        crop_str = ""
+        kw_dict = request.args
+        for k, v in kw_dict.items():
+            if k.startswith("imageMogr2/crop/"):
+                crop_str = k.split("imageMogr2/crop/")[1]
 
         _filename, _size_string = self.process_filename(filename)
         if _size_string in image_size_map:
@@ -50,6 +56,8 @@ class ResizeImageView(ProcessImageMixin, MethodView):
 
         if app.storage.is_exist(_filename):
             content = app.storage.read(_filename)
+            if crop_str:
+                return self.crop_with_param(content=content, crop_str=crop_str)
             return self.resize(content=content, size=_size)
         else:
             return abort(404)
