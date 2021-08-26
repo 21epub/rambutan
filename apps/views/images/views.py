@@ -44,9 +44,9 @@ class ResizeImageView(ProcessImageMixin, MethodView):
     def get(self, filename):
         crop_str = ""
         kw_dict = request.args
-        for k in kw_dict:
-            if k.startwith("imageMogr2"):
-                crop_str = k.split("imageMogr2")
+        for k, v in kw_dict.items():
+            if k.startswith("imageMogr2/crop/"):
+                crop_str = k.split("imageMogr2/crop/")[1]
 
         _filename, _size_string = self.process_filename(filename)
         if _size_string in image_size_map:
