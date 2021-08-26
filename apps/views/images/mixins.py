@@ -54,3 +54,9 @@ class ProcessImageMixin(object):
             img, format=processor.get_format(), quality=quality
         )
         return Response(content, content_type=mime_type)
+
+    def crop_with_param(self, content, crop_str, quality=95):
+        content, mime_type = ImageProcessor(fd=content).crop_with_param(
+            crop_str, quality=quality
+        )
+        return Response(content, content_type=mime_type)
