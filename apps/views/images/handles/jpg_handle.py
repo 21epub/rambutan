@@ -34,14 +34,14 @@ class ImageProcessor(object):
         return content, _get_mime_type(_format)
 
     # 裁剪入口
-    def crop_with_param(self, crop_str, ignore_error=True, format="JPEG", quality=85):
+    def crop_with_param(self, crop_str, ignore_error=False, quality=85):
         box = self.parse_param(crop_str)
         # 裁剪
         im_crop = self.im.crop(box)
         # 保存
         try:
             fd = BytesIO()
-            _format = format
+            _format = self.im.format
             im_crop.save(fd, format=_format, quality=quality)
             content = fd.getvalue()
             fd.close()
