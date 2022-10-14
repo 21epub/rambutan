@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 mime_type = {"jpeg": "image/jpeg", "png": "image/png"}
 
@@ -11,7 +11,8 @@ def _get_mime_type(format) -> str:
 
 class ImageProcessor(object):
     def __init__(self, fd, **kwargs):
-        self.im = Image.open(BytesIO(fd), mode="r")
+        _im = Image.open(BytesIO(fd), mode="r")
+        self.im = ImageOps.exif_transpose(_im)
         # 原始图片的宽度、长度
         self.origin_width, self.origin_heigth = self.im.size
 
