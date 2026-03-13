@@ -2,7 +2,7 @@ FROM epub-registry.cn-hangzhou.cr.aliyuncs.com/21epub/python:3.12.8-slim-bullsey
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get -y update && apt-get -y install supervisor
-RUN pip install -U pip -i https://mirrors.aliyun.com/pypi/simple/
+RUN pip install -U pip setuptools -i https://mirrors.aliyun.com/pypi/simple/
 
 COPY . /opt/rambutan
 WORKDIR		/opt/rambutan
