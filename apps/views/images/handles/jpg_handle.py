@@ -6,7 +6,7 @@ mime_type = {"jpeg": "image/jpeg", "png": "image/png"}
 
 
 def _get_mime_type(format) -> str:
-    return mime_type.get(format.lower())
+    return mime_type.get(format.lower(), "image/jpeg")
 
 
 class ImageProcessor(object):
