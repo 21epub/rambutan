@@ -1,4 +1,4 @@
-FROM python:3.7.8-slim-buster
+FROM epub-registry.cn-hangzhou.cr.aliyuncs.com/21epub/python:3.12.8-slim-bullseye
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get -y update && apt-get -y install supervisor
