@@ -6,6 +6,7 @@ from flask_bootstrap import Bootstrap
 from werkzeug.routing import BaseConverter
 
 from flask_storage.local_storage import FileStorage
+from flask_storage.oss_storage import OssStorage
 from instance.config import app_config
 
 
@@ -32,7 +33,11 @@ def create_app(config_name="development"):
 
 
 def register_extensions(app):
-    app.storage = FileStorage(app)
+    storage_type = app.config.get("STORAGE_TYPE", "local")
+    if storage_type == "oss":
+        app.storage = OssStorage(app)
+    else:
+        app.storage = FileStorage(app)
     Bootstrap(app)
     app.url_map.converters["regex"] = RegexConverter
 

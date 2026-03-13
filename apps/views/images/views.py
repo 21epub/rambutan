@@ -10,12 +10,7 @@ app = Flask(__name__)
 with app.app_context():
     app = current_app
 
-image_size_map = {
-    "origin": 0,
-    "thumb": 320,
-    "large": 1024,
-    "hd": 2048
-}
+image_size_map = {"origin": 0, "thumb": 320, "large": 1024, "hd": 2048}
 
 image_pattern = re.compile(r".*-(thumb|large|hd)$", re.IGNORECASE)
 
