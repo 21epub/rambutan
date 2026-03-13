@@ -9,5 +9,8 @@ html5lib==1.0.1
 requests==2.24.0
 itsdangerous==2.0.1
 
+# Aliyun OSS SDK
+oss2==2.18.2
+
 #numpy==1.19.2
 #opencv-python==4.1.1.26
