@@ -9,14 +9,14 @@ class BaseStorage(object):
         if self.storage_path is None:
             raise Exception("storage is None")
 
-    def read(self, **kwargs):
+    def read(self, filename: str):
         raise NotImplementedError()
 
-    def delete(self):
+    def delete(self, filename: str):
         raise NotImplementedError()
 
-    def is_exist(self, **kwargs) -> bool:
+    def is_exist(self, filename: str) -> bool:
         return True
 
-    def save(self, dist):
+    def save(self, filename: str, content: bytes):
         raise NotImplementedError()

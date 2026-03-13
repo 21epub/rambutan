@@ -1,5 +1,3 @@
-import os
-
 import oss2
 
 from .base import BaseStorage
@@ -34,7 +32,7 @@ class OssStorage(BaseStorage):
         auth = oss2.Auth(access_key_id, access_key_secret)
         self.bucket = oss2.Bucket(auth, self.endpoint, self.bucket_name)
 
-    def get_abs_filename(self, filename):
+    def get_abs_filename(self, filename: str) -> str:
         """Get the full OSS object key."""
         if self.storage_path:
             if self.storage_path.endswith("/"):
@@ -42,12 +40,12 @@ class OssStorage(BaseStorage):
             return "{}/{}".format(self.storage_path, filename)
         return filename
 
-    def is_exist(self, filename):
+    def is_exist(self, filename: str) -> bool:
         """Check if file exists in OSS."""
         key = self.get_abs_filename(filename)
         return self.bucket.object_exists(key)
 
-    def delete(self, filename):
+    def delete(self, filename: str) -> bool:
         """Delete file from OSS."""
         key = self.get_abs_filename(filename)
         try:
@@ -56,14 +54,14 @@ class OssStorage(BaseStorage):
         except Exception:
             return False
 
-    def read(self, filename):
+    def read(self, filename: str) -> bytes:
         """Read file content from OSS."""
         key = self.get_abs_filename(filename)
         result = self.bucket.get_object(key)
         content = result.read()
         return content
 
-    def save(self, filename, content):
+    def save(self, filename: str, content: bytes) -> bool:
         """Save file to OSS."""
         key = self.get_abs_filename(filename)
         try:
