@@ -1,4 +1,3 @@
-
 import os
 import re
 from PIL import Image
@@ -212,5 +211,3 @@ class CropImage:
 
 if __name__ == "__main__":
     CropImage("origin.png").crop_with_param("!200xa1200")
-
-
