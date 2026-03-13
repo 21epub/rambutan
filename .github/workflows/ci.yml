@@ -49,7 +49,6 @@ jobs:
   docker-build:
     runs-on: ubuntu-latest
     needs: test
-    if: false  # Disabled: requires access to private Aliyun container registry
 
     steps:
       - uses: actions/checkout@v4
