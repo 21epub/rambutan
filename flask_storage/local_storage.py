@@ -24,4 +24,8 @@ class FileStorage(BaseStorage):
         return content
 
     def save(self, filename: str, content: bytes) -> Optional[bool]:
-        return None
+        abs_filename = self.get_abs_filename(filename)
+        os.makedirs(os.path.dirname(abs_filename), exist_ok=True)
+        with open(abs_filename, mode="wb") as f:
+            f.write(content)
+        return True
