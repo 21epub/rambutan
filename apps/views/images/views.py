@@ -59,6 +59,6 @@ class ResizeImageView(ProcessImageMixin, MethodView):
 
 
 images.add_url_rule(
-    "/<regex('.*'):filename>",
+    "/<path:filename>",
     view_func=ResizeImageView.as_view("image-processor"),
 )
