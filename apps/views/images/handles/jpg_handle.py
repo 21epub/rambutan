@@ -17,7 +17,7 @@ class ImageProcessor(object):
         self.origin_width, self.origin_heigth = self.im.size
 
     def get_format(self):
-        return self.im.format
+        return self.im.format or "JPEG"
 
     def resize(self, size=tuple()) -> Image.Image:
         self.im.thumbnail(size)
@@ -42,7 +42,7 @@ class ImageProcessor(object):
         # 保存
         try:
             fd = BytesIO()
-            _format = self.im.format
+            _format = self.get_format()
             im_crop.save(fd, format=_format, quality=quality)
             content = fd.getvalue()
             fd.close()
