@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rambutan
+  namespace: comac
+  labels:
+    app: rambutan
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: rambutan
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rambutan
+  namespace: comac
+spec:
+  selector:
+    matchLabels:
+      app: rambutan
+  replicas: 1 #$REPLICAS
+  template:
+    metadata:
+      labels:
+        app: rambutan
+        #annotations:
+        #kubernetes.io/change-cause: UpdateTo-latest
+    spec:
+      #nodeSelector:
+      #  kubernetes.io/hostname: lcms-28-88
+      containers:
+      #- image: 21epub-registry.cn-hangzhou.cr.aliyuncs.com/21epub/rambutan:1.1
+      - image: epub-registry.cn-hangzhou.cr.aliyuncs.com/21epub/rambutan:1.1
+        imagePullPolicy: Always
+        name: rambutan
+        command: ["gunicorn", "-c", "/etc/default/gunicorn.py", "apps:create_app()"]
+        env:
+        - name: DATE
+        - name: STORAGE_PATH
+          value: /opt/www/media/
+        - name: FLASK_ENV
+          #value: development
+          value: production
+        resources:
+          requests:
+            cpu: "200m"
+        volumeMounts:
+        - name: media
+          mountPath: /opt/www/media
+      imagePullSecrets:
+        - name: cr-reg
+        - name: cri-reg
+      volumes:
+      - name: media
+        #persistentVolumeClaim:
+        #  claimName: comac-media
+        hostPath:
+          path: /mnt/nfs/media/
+          type: Directory
