@@ -161,6 +161,55 @@ class TestImageProcessor:
         assert box[2] == 310  # 300 + 10 offset
         assert box[3] == 410  # 400 + 10 offset
 
+    @pytest.fixture
+    def rgba_png_bytes(self):
+        """Create a PNG image with RGBA mode (transparency)."""
+        img = Image.new("RGBA", (800, 600), (255, 0, 0, 128))
+        buffer = BytesIO()
+        img.save(buffer, format="PNG")
+        buffer.seek(0)
+        return buffer.getvalue()
+
+    def test_output_rgba_to_jpeg(self):
+        """Test output method converts RGBA to RGB when saving as JPEG."""
+        # Create RGBA image
+        img = Image.new("RGBA", (100, 100), (255, 0, 0, 128))
+        # This should not raise "cannot write mode RGBA as JPEG"
+        content, mime_type = ImageProcessor.output(img, format="JPEG", quality=85)
+        assert isinstance(content, bytes)
+        assert mime_type == "image/jpeg"
+        # Verify the output is a valid JPEG
+        output_img = Image.open(BytesIO(content))
+        assert output_img.mode == "RGB"
+
+    def test_crop_with_param_rgba_to_jpeg(self, rgba_png_bytes):
+        """Test crop_with_param converts RGBA to RGB when saving as JPEG.
+
+        This tests the fix for: OSError: cannot write mode RGBA as JPEG
+        When a PNG with transparency (RGBA mode) is cropped and saved as JPEG,
+        the image must be converted from RGBA to RGB first.
+        """
+        processor = ImageProcessor(rgba_png_bytes)
+        # Verify the source image is RGBA
+        assert processor.im.mode == "RGBA"
+        # This should not raise "cannot write mode RGBA as JPEG"
+        content, mime_type = processor.crop_with_param("300x400")
+        assert isinstance(content, bytes)
+        assert mime_type == "image/jpeg"
+        # Verify the output is a valid JPEG
+        output_img = Image.open(BytesIO(content))
+        assert output_img.mode == "RGB"
+
+    def test_output_rgba_to_png_preserves_alpha(self):
+        """Test output method preserves RGBA mode when saving as PNG."""
+        img = Image.new("RGBA", (100, 100), (255, 0, 0, 128))
+        content, mime_type = ImageProcessor.output(img, format="PNG", quality=85)
+        assert isinstance(content, bytes)
+        assert mime_type == "image/png"
+        # Verify the output preserves alpha channel
+        output_img = Image.open(BytesIO(content))
+        assert output_img.mode == "RGBA"
+
 
 class TestFileStorage:
     """Test FileStorage class."""

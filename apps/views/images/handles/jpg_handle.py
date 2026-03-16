@@ -29,6 +29,9 @@ class ImageProcessor(object):
             raise
         fd = BytesIO()
         _format = format
+        # JPEG 不支持 RGBA 模式，转换为 RGB
+        if _format.upper() == "JPEG" and im.mode == "RGBA":
+            im = im.convert("RGB")
         im.save(fd, format=_format, quality=quality)
         content = fd.getvalue()
         fd.close()
@@ -43,6 +46,9 @@ class ImageProcessor(object):
         try:
             fd = BytesIO()
             _format = self.get_format()
+            # JPEG 不支持 RGBA 模式，转换为 RGB
+            if _format.upper() == "JPEG" and im_crop.mode == "RGBA":
+                im_crop = im_crop.convert("RGB")
             im_crop.save(fd, format=_format, quality=quality)
             content = fd.getvalue()
             fd.close()
