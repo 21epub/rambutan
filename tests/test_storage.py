@@ -175,7 +175,9 @@ class TestImageProcessor:
         # Create RGBA image
         img = Image.new("RGBA", (100, 100), (255, 0, 0, 128))
         # This should not raise "cannot write mode RGBA as JPEG"
-        content, mime_type = ImageProcessor.output(img, format="JPEG", quality=85)
+        content, mime_type = ImageProcessor.output(
+            img, format="JPEG", quality=85
+        )
         assert isinstance(content, bytes)
         assert mime_type == "image/jpeg"
         # Verify the output is a valid JPEG
@@ -203,7 +205,9 @@ class TestImageProcessor:
     def test_output_rgba_to_png_preserves_alpha(self):
         """Test output method preserves RGBA mode when saving as PNG."""
         img = Image.new("RGBA", (100, 100), (255, 0, 0, 128))
-        content, mime_type = ImageProcessor.output(img, format="PNG", quality=85)
+        content, mime_type = ImageProcessor.output(
+            img, format="PNG", quality=85
+        )
         assert isinstance(content, bytes)
         assert mime_type == "image/png"
         # Verify the output preserves alpha channel
