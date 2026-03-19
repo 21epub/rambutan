@@ -184,23 +184,17 @@ class TestImageProcessor:
         output_img = Image.open(BytesIO(content))
         assert output_img.mode == "RGB"
 
-    def test_crop_with_param_rgba_to_jpeg(self, rgba_png_bytes):
-        """Test crop_with_param converts RGBA to RGB when saving as JPEG.
-
-        This tests the fix for: OSError: cannot write mode RGBA as JPEG
-        When a PNG with transparency (RGBA mode) is cropped and saved as JPEG,
-        the image must be converted from RGBA to RGB first.
-        """
+    def test_crop_with_param_rgba_png_preserves_alpha(self, rgba_png_bytes):
+        """Test crop_with_param keeps PNG and preserves alpha for RGBA PNG."""
         processor = ImageProcessor(rgba_png_bytes)
         # Verify the source image is RGBA
         assert processor.im.mode == "RGBA"
-        # This should not raise "cannot write mode RGBA as JPEG"
         content, mime_type = processor.crop_with_param("300x400")
         assert isinstance(content, bytes)
-        assert mime_type == "image/jpeg"
-        # Verify the output is a valid JPEG
+        assert mime_type == "image/png"
+        # Verify the output preserves alpha channel
         output_img = Image.open(BytesIO(content))
-        assert output_img.mode == "RGB"
+        assert output_img.mode == "RGBA"
 
     def test_output_rgba_to_png_preserves_alpha(self):
         """Test output method preserves RGBA mode when saving as PNG."""
@@ -213,6 +207,25 @@ class TestImageProcessor:
         # Verify the output preserves alpha channel
         output_img = Image.open(BytesIO(content))
         assert output_img.mode == "RGBA"
+
+    @pytest.fixture
+    def palette_png_bytes(self):
+        """Create a PNG image with palette (P) mode."""
+        img = Image.new("P", (800, 600))
+        buffer = BytesIO()
+        img.save(buffer, format="PNG")
+        buffer.seek(0)
+        return buffer.getvalue()
+
+    def test_crop_with_param_palette_png(self, palette_png_bytes):
+        """Test crop_with_param works for PNG in P mode without errors."""
+        processor = ImageProcessor(palette_png_bytes)
+        assert processor.im.mode == "P"
+        content, mime_type = processor.crop_with_param("300x400")
+        assert isinstance(content, bytes)
+        assert mime_type == "image/png"
+        output_img = Image.open(BytesIO(content))
+        assert output_img.mode in ("P", "RGB", "RGBA")
 
 
 class TestFileStorage:

@@ -31,7 +31,7 @@ spec:
         app: rambutan
     spec:
       containers:
-      - image: epub-registry.cn-hangzhou.cr.aliyuncs.com/21epub/rambutan:1.2.6
+      - image: epub-registry.cn-hangzhou.cr.aliyuncs.com/21epub/rambutan:1.2.9
         imagePullPolicy: Always
         name: rambutan
         command: ["gunicorn", "-c", "/etc/default/gunicorn.py", "apps:create_app()"]
