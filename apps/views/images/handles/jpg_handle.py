@@ -126,7 +126,9 @@ class ImageProcessor(object):
             # 调整图片大小
             box = self.parse_not_offset_param(cropsize[0], box)
             # a表示偏移，大小固定，使用四舍五入
-            adx, ady = int(round(float(cropsize[1]))), int(round(float(cropsize[2])))
+            adx, ady = int(round(float(cropsize[1]))), int(
+                round(float(cropsize[2]))
+            )
             # 整体移动
             new_box = [box[0] + adx, box[1] + ady, box[2] + adx, box[3] + ady]
             return new_box
@@ -139,7 +141,9 @@ class ImageProcessor(object):
             box = self.parse_not_offset_param(cropsize[0], box)
             # - 相对于偏移锚点，从指定宽度中减去dx个像素，同时从指定高度中减去dy个像素。取值范围不限，小于原图宽高即可。
             # - 表示减去像素，位置不变，使用四舍五入
-            dx, dy = int(round(float(cropsize[1]))), int(round(float(cropsize[2])))
+            dx, dy = int(round(float(cropsize[1]))), int(
+                round(float(cropsize[2]))
+            )
             box[2] = box[2] - dx
             box[3] = box[3] - dy
             return box
