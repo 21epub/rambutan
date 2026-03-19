@@ -12,12 +12,15 @@ def _get_mime_type(format) -> str:
 class ImageProcessor(object):
     def __init__(self, fd, **kwargs):
         _im = Image.open(BytesIO(fd), mode="r")
+        # 保存原始格式，exif_transpose 会清除 format 属性
+        self._origin_format = _im.format
         self.im = ImageOps.exif_transpose(_im)
         # 原始图片的宽度、长度
         self.origin_width, self.origin_heigth = self.im.size
 
     def get_format(self):
-        return self.im.format or "JPEG"
+        # 使用保存的原始格式
+        return self._origin_format or "JPEG"
 
     def resize(self, size=tuple()) -> Image.Image:
         self.im.thumbnail(size)
@@ -29,8 +32,14 @@ class ImageProcessor(object):
             raise
         fd = BytesIO()
         _format = format
-        # JPEG 不支持 RGBA 模式，转换为 RGB
-        if _format.upper() == "JPEG" and im.mode == "RGBA":
+        # PNG 格式保持原样，保留透明
+        if _format.upper() == "PNG":
+            im.save(fd, format=_format)
+            content = fd.getvalue()
+            fd.close()
+            return content, _get_mime_type(_format)
+        # JPEG 格式：不支持 RGBA/P 模式，转换为 RGB
+        if _format.upper() == "JPEG" and im.mode in ("RGBA", "P"):
             im = im.convert("RGB")
         im.save(fd, format=_format, quality=quality)
         content = fd.getvalue()
@@ -45,9 +54,16 @@ class ImageProcessor(object):
         # 保存
         try:
             fd = BytesIO()
+            # 使用原图格式，保留透明等信息
             _format = self.get_format()
-            # JPEG 不支持 RGBA 模式，转换为 RGB
-            if _format.upper() == "JPEG" and im_crop.mode == "RGBA":
+            # PNG 格式保持原样，保留透明
+            if _format.upper() == "PNG":
+                im_crop.save(fd, format=_format)
+                content = fd.getvalue()
+                fd.close()
+                return content, _get_mime_type(_format)
+            # JPEG 格式：不支持 RGBA/P 模式，转换为 RGB
+            if _format.upper() == "JPEG" and im_crop.mode in ("RGBA", "P"):
                 im_crop = im_crop.convert("RGB")
             im_crop.save(fd, format=_format, quality=quality)
             content = fd.getvalue()
