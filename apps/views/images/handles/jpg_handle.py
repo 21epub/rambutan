@@ -89,12 +89,12 @@ class ImageProcessor(object):
     def parse_not_offset_param(self, crop_str, box):
         # <Width>x  300x 数值开头，x结尾
         if crop_str.startswith("x"):
-            width = int(crop_str.lstrip("x"))
+            width = int(round(float(crop_str.lstrip("x"))))
             box[3] = self.get_width(width)
             return box
 
         if crop_str.endswith("x"):
-            height = int(crop_str.rstrip("x"))
+            height = int(round(float(crop_str.rstrip("x"))))
             box[2] = self.get_heigth(height)
             return box
 
@@ -103,8 +103,8 @@ class ImageProcessor(object):
         # x<Height>  x300 x开头，数值结尾
         if len(axis) != 2:
             raise Exception(f"裁剪参数错误{crop_str}")
-        box[2] = self.get_width(int(axis[0]))
-        box[3] = self.get_heigth(int(axis[1]))
+        box[2] = self.get_width(int(round(float(axis[0]))))
+        box[3] = self.get_heigth(int(round(float(axis[1]))))
         return box
 
     def parse_offset_param(self, crop_str, box):
@@ -125,8 +125,8 @@ class ImageProcessor(object):
                 raise Exception(f"裁剪参数错误{crop_str}")
             # 调整图片大小
             box = self.parse_not_offset_param(cropsize[0], box)
-            # a表示偏移，大小固定
-            adx, ady = int(cropsize[1]), int(cropsize[2])
+            # a表示偏移，大小固定，使用四舍五入
+            adx, ady = int(round(float(cropsize[1]))), int(round(float(cropsize[2])))
             # 整体移动
             new_box = [box[0] + adx, box[1] + ady, box[2] + adx, box[3] + ady]
             return new_box
@@ -138,8 +138,8 @@ class ImageProcessor(object):
             # 调整图片大小
             box = self.parse_not_offset_param(cropsize[0], box)
             # - 相对于偏移锚点，从指定宽度中减去dx个像素，同时从指定高度中减去dy个像素。取值范围不限，小于原图宽高即可。
-            # - 表示减去像素，位置不变
-            dx, dy = int(cropsize[1]), int(cropsize[2])
+            # - 表示减去像素，位置不变，使用四舍五入
+            dx, dy = int(round(float(cropsize[1]))), int(round(float(cropsize[2])))
             box[2] = box[2] - dx
             box[3] = box[3] - dy
             return box
@@ -150,8 +150,8 @@ class ImageProcessor(object):
                 raise Exception(f"裁剪参数错误{crop_str}")
             # 调整图片大小
             box = self.parse_not_offset_param(cropsize[0], box)
-            # a表示偏移，大小固定
-            adx = int(cropsize[1])
+            # a表示偏移，大小固定，使用四舍五入
+            adx = int(round(float(cropsize[1])))
             # 整体移动
             new_box = [box[0] + adx, box[1], box[2] + adx, box[3]]
             return new_box
@@ -166,11 +166,11 @@ class ImageProcessor(object):
                 box = self.parse_not_offset_param(cropsize[0], box)
 
                 adx, dy = cropsize[1].split("-")
-                box[0] = box[0] + int(adx)
-                box[2] = box[2] + int(adx)
+                box[0] = box[0] + int(round(float(adx)))
+                box[2] = box[2] + int(round(float(adx)))
 
-                box[1] = box[1] - int(dy)
-                box[3] = box[3] - int(dy)
+                box[1] = box[1] - int(round(float(dy)))
+                box[3] = box[3] - int(round(float(dy)))
             else:
                 # 300x400-10a10
                 cropsize = crop_str.split("-")
@@ -178,11 +178,11 @@ class ImageProcessor(object):
                 box = self.parse_not_offset_param(cropsize[0], box)
 
                 dx, ady = cropsize[1].split("a")
-                box[0] = box[0] - int(dx)
-                box[2] = box[2] - int(dx)
+                box[0] = box[0] - int(round(float(dx)))
+                box[2] = box[2] - int(round(float(dx)))
 
-                box[1] = box[1] + int(ady)
-                box[3] = box[3] + int(ady)
+                box[1] = box[1] + int(round(float(ady)))
+                box[3] = box[3] + int(round(float(ady)))
 
     def crop(self, width=0, height=0, dx=0, dy=0, ignore_error=True, name=0):
         """
